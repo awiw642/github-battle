@@ -1,6 +1,7 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const api = require('../utils/api');
+import React from 'react';
+import PropTypes from 'prop-types';
+import { fetchPopularRepos } from '../utils/api';
+import Loading from './Loading';
 
 const SelectLanguage = (props) => {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
@@ -80,7 +81,7 @@ class Popular extends React.Component {
       };
     });
 
-    api.fetchPopularRepos(language)
+    fetchPopularRepos(language)
       .then((repos) => {
         this.setState(() => {
           return {
@@ -98,7 +99,7 @@ class Popular extends React.Component {
           onSelect={this.updateLanguage}
         />
         {!this.state.repos ?
-          <p>LOADING</p> :
+          <Loading /> :
           <RepoGrid repos={this.state.repos}/>
         }
       </div>
@@ -106,4 +107,4 @@ class Popular extends React.Component {
   }
 }
 
-module.exports = Popular;
+export default Popular;

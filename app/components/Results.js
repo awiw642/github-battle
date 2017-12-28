@@ -1,10 +1,10 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const queryString = require('query-string');
-const api = require('../utils/api');
-const Link = require('react-router-dom').Link;
-const PlayerPreview = require('./PlayerPreview');
-const Loading = require('./Loading');
+import React from 'react';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import { battle } from '../utils/api';
+import { Link } from 'react-router-dom';
+import PlayerPreview from './PlayerPreview';
+import Loading from './Loading';
 
 
 const Profile = (props) => {
@@ -33,7 +33,7 @@ const Player = (props) => {
     <div>
       <h1 className='header'>{props.label}</h1>
       <h3 style={{textAlign: 'center'}}>Score: {props.score}</h3>
-      <Profile info={props.profile}/>
+      <Profile info={props.profile} />
     </div>
   );
 };
@@ -57,7 +57,7 @@ class Results extends React.Component {
   }
   componentDidMount() {
     const players = queryString.parse(this.props.location.search);
-    api.battle([players.playerOneName, players.playerTwoName])
+    battle([players.playerOneName, players.playerTwoName])
       .then((results) => {
         if (results === null) {
           return this.setState(() => {
@@ -116,4 +116,4 @@ class Results extends React.Component {
   }
 }
 
-module.exports = Results;
+export default Results;
